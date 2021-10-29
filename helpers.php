@@ -263,7 +263,7 @@ function generate_random_date($index)
     return $dt;
 }
 
-// Мои функции
+//        ******   Мои функции   ******
 
 /**
  * Обрезает текст до заданной длины, не обрезая слов.
@@ -272,7 +272,7 @@ function generate_random_date($index)
  * @param integer $max_length Максимальная длина обрезанного текста
  * @return string
 */
-function cut_excerpt_1($text, $max_length) {
+function cut_excerpt_1($text, $max_length) {  // убрать как не используемую
     $words = explode(' ', $text);
     $result_length = 0;
 
@@ -308,7 +308,6 @@ function cut_excerpt_2($text, $max_length) {
 /**
  * Возвращает разметку с отфильтрованным текстом.
  * Если длина текста превышает заданную, обрезает его, фильтрует и добавляет многоточие и ссылку "Читать далее".
-
  * @param string $text Исходный текст
  * @param integer $max_length Максимальная длина обрезанного текста
  * @return string
@@ -358,12 +357,13 @@ function calc_time_interval($date_str) {
 
 /**
  * Увеличивает первый параметр на единицу, если второй параметр - истиный
-
  * @param int $number Исходное число
  * @param bool $cond
 */
 function increment_by_condition($number, $cond) {
-    if ($cond) $number++;
+    if ($cond) {
+        $number++;
+    }
     return $number;
 }
 
@@ -448,7 +448,7 @@ function set_connection() {
  */
 function fetch_sql_response($link, $sql, $data) {
    $stmt = db_get_prepare_stmt($link, $sql, $data);
-    mysqli_execute($stmt);
+    mysqli_execute($stmt); // заменить на mysqli_stmt_execute()
 
     $result = mysqli_stmt_get_result($stmt);
 
@@ -554,7 +554,7 @@ function get_file_ext($file_type) {
     return  '.' . array_pop($type_arr);
 }
 
-define('MAX_FILE_SIZE', 2097152); // 2Мб в байтах
+define('MAX_FILE_SIZE', 2097152); // 2Мб в байтах       // эту строку лучше в начало своих функций (визуально теряется в середине)
 
 /**
  * Функция - валидатор загруженного файла
@@ -570,7 +570,7 @@ function validate_file($file) {
         if (!in_array($file_type, $required_types)) {
             $message = "Загрузите картинку в одном из форматов: gif, jpeg, png";
         } elseif ($file['size'] > MAX_FILE_SIZE) {
-            $message = "Максимальный размер файла: 2Мб";
+            $message = "Максимальный размер файла: 2Мб"; // встроить MAX_FILE_SIZE вместо 2
         }
     }
     return $message;
@@ -599,7 +599,7 @@ function validate_photo_url($value) {
     $message = null;
     // Если не загружен файл - проверяем наличие ссылки
     if (empty($_FILES['file']['name'])) {
-        if (!$value) {
+        if (!$value) { // обменять блоки и без инверсии логики !
             // Если нет файла и нет ссылки
             $message = "Одно из полей должно быть заполнено: загрузите файл или введите ссылку на изображение";
         } else {
@@ -684,7 +684,7 @@ function rename_key($old_keys, $new_key, $arr) {
  *
  * @param $var
  */
-function array_view($var) {
+function array_view($var) { // убрать как вспомогательный !
 ?>
 
 	<div style="max-width: 60em; word-break: break-all; padding: 1em; background-color: lightcyan; border: 2px solid red; color: black;">
