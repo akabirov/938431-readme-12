@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($result) {
             header("Location: /");
+            exit;
         } else {
             $errors['mysql'] = 'Не удалось зарегистрировать аккаунт';
         }
@@ -85,24 +86,24 @@ $label = [
     'login' => 'Логин',
     'password' => 'Пароль',
     'password-repeat' => 'Повтор пароля',
-    'file' => 'Загрузка фото'
+    'file' => 'Загрузка фото',
 ];
 
 $invalid_block = include_template('invalid-block.php', [
     'errors' => $errors,
-    'label' => $label
+    'label' => $label,
 ]);
 
 $content = include_template('registration.php', [
     'label' => $label,
     'errors' => $errors,
-    'invalid_block' => $invalid_block
+    'invalid_block' => $invalid_block,
 ]);
 
 $layout = include_template('layout.php', [
     'page_content' => $content,
     'page_title' => 'readme: Регистрация на сайте',
-    'user' => null
+    'user' => null,
 ]);
 
 print($layout);
