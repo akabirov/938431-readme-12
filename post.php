@@ -24,16 +24,16 @@ $sql_post = "SELECT
     post.*,
     t_class AS p_type
 FROM post
-INNER JOIN post_type
-ON type_id = post_type.id
+  INNER JOIN post_type
+    ON type_id = post_type.id
 WHERE post.id = ?;";
 
 // Создаем запрос на получение хэштегов к посту с заданным id
 $sql_hash = "SELECT
     title
 FROM hashtag
-INNER JOIN post_hashtag
-ON hashtag.id = hash_id
+  INNER JOIN post_hashtag
+    ON hashtag.id = hash_id
 AND post_id = ?;";
 
 // Запрос на получение количества комментариев к посту
@@ -53,11 +53,11 @@ $sql_comments = "SELECT
     u_name,
     u_avatar
 FROM comment
-INNER JOIN user
-ON user.id = comment.user_id
+  INNER JOIN user
+    ON user.id = comment.user_id
 WHERE post_id = ?
 ORDER BY c_date DESC
-LIMIT 5;";
+LIMIT 5;"; // 5 - лучше вынести как константу или переменную и прокомментировать что это
 
 // Создаем запрос на получение данных о пользователе
 $sql_user = "SELECT
@@ -137,5 +137,9 @@ $content = include_template('details.php', [
 
 $title = 'readme: публикация';
 
-$layout = include_template('layout.php', ['page_content' => $content, 'page_title' => $title, 'user' => $user]);
+$layout = include_template('layout.php', [
+    'page_content' => $content, 
+    'page_title' => $title, 
+    'user' => $user
+]);
 print($layout);
