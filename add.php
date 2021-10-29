@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'filters' => ['title' => FILTER_DEFAULT, 'tags' => FILTER_DEFAULT]
     ];
 
+    // добавить комментарий
     $form_options = [
         'link' => [
             'required' => array_merge($opts['required'], ['post-link']),
@@ -69,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]
     ];
 
+    // добавить комментарий
     $rules = [
         'photo-url' => function($value) {
             return validate_photo_url($value);
@@ -84,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     ];
 
+    // добавить комментарий
     $active_type = get_post_value('post-type');
     $options = $form_options[$active_type];
     $required = $options['required'];
@@ -108,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$errors) {
         if ($active_type == 'photo') {
             // Если загружен файл и нет ошибок его сохраняем в папку uploads
-            if (!empty($_FILES['file']['name'])) {
+            if (!empty($_FILES['file']['name'])) { // поменял бы блоки местами и убрал инверсию условия
                 $file_photo = $_FILES['file'];
                 $path = replace_file_to_uploads($file_photo);
                 $post['photo-url'] = $path;
@@ -142,11 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $post = rename_key($text_keys, 'text', $post);
         $post = rename_key($url_keys, 'url', $post);
 
+        // лучше через array_fill_keys
         $empty_data = [
             'title' => NULL,
             'url' => NULL,
             'text' => NULL,
-            'quote-author' => NULL
+            'quote-author' => NULL,
         ];
 
         $data_post = array_merge($empty_data, $post);
@@ -205,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     mysqli_stmt_execute($stmt);
                 }
             }
-        // Перенаправляем на страницу просмотра поста
+            // Перенаправляем на страницу просмотра поста
             header("Location: http://readme/post.php?id=" . $post_id);
             exit;
         } else {
