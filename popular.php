@@ -47,7 +47,7 @@ $sort = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'popul
 // Создаем ограничение для SQL запроса
 $where_condition = '';
 if ($filter) {
-    $where_condition = " WHERE type_id = " .$filter;
+    $where_condition = " WHERE type_id = " . $filter;
 };
 
 $order_param = 'watch_count';
@@ -75,18 +75,18 @@ $sql = "SELECT
     comment_count,
     like_count
 FROM post
-INNER JOIN user
-ON user_id = user.id
-INNER JOIN post_type
-ON type_id = post_type.id
-LEFT JOIN
+  INNER JOIN user
+    ON user_id = user.id
+  INNER JOIN post_type
+    ON type_id = post_type.id
+  LEFT JOIN
     (
-        SELECT
+      SELECT
         comment.post_id,
         COUNT(comment.id) AS comment_count,
         like_count
-        FROM comment
-        LEFT JOIN
+      FROM comment
+      LEFT JOIN
             (
                 SELECT post_id, COUNT(id) AS like_count
                 FROM post_like
@@ -95,7 +95,7 @@ LEFT JOIN
         ON post_likes.post_id = comment.post_id
         GROUP BY comment.post_id
     ) AS post_count
-ON post_count.post_id = post.id"
+  ON post_count.post_id = post.id"
 . $where_condition
 . " ORDER BY " . $order_param . " DESC;";
 
