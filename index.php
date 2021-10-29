@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (password_verify($form['password'], $user['u_password'])) {
                     $_SESSION['user'] = $user;
                     header("Location: /feed.php");
+                    exit;
                 } else {
                     $errors['password'] = 'Неверный пароль';
                 }
