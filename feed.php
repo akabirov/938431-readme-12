@@ -18,12 +18,12 @@ $con = set_connection();
 // Перенаправляем на главную страницу незалогиненных пользователей
 if (!isset($user)) {
     header('Location: /index.php');
-    exit();
+    exit;
 }
 
 $title = 'readme: моя лента';
 
-$content = include_template('feed.php', []);
+$content = include_template('feed.php');
 $title = 'readme: моя лента';
 
 $layout = include_template('layout.php', ['page_content' => $content, 'page_title' => $title, 'user' => $user]);
